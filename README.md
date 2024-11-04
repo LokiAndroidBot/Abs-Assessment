@@ -18,7 +18,7 @@ Getting Started </br>
 
 ## Clone the repository:
 open version control </br>
-git clone https://github.com/yourusername/user-management-app.git</br>
+git clonse https://github.com/LokiAndroidBot/Abs-Assessment
 cd Abs-Assessment</br>
 Open the project in Android Studio.</br>
 
