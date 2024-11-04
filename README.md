@@ -45,6 +45,8 @@ The UserListViewModel manages the UI state and handles user input events.
 
 #### UI
 The UI is built using Jetpack Compose, providing a modern, reactive interface. Key components include UserListScreen and UserDetailScreen.
+- UserListScreen: Displays the list of users.
+- UserDetailScreen: Shows detailed information about a selected user.
 
 #### Navigation
 The app uses Jetpack Navigation for seamless transitions between screens.
