@@ -18,85 +18,46 @@ Getting Started </br>
 
 ## Clone the repository:
 open version control </br>
-git clonse https://github.com/LokiAndroidBot/Abs-Assessment
+git clone https://github.com/LokiAndroidBot/Abs-Assessment </br>
 cd Abs-Assessment</br>
 Open the project in Android Studio.</br>
 
-## Build the project and install the app on a physical device or emulator.
+### Build the project and install the app on a physical device or emulator.
 
-Architecture
-The application follows the MVVM (Model-View-ViewModel) architectural pattern, which helps to separate the user interface from the business logic.
+#### Architecture
+The application follows the MVI Architecture along with MVVM (Model-View-ViewModel) architectural pattern, which helps to separate the user interface from the business logic.
 
-Components
+#### Components
 User Repository
 The UserRepositoryImpl class is responsible for fetching user data from the remote API. It maps the API response to the User data class.
 
-## UserRepositoryImpl
-class UserRepositoryImpl @Inject constructor(private val api: UsersService) : UserRepository {
-    override suspend fun getUsersList(inp: Int): List<User> {
-        return api.getUsersList(inp).results.map {
-            User(
-                id = it.id.toString(),
-                firstName = it.name.first,
-                lastName = it.name.last,
-                thumbnail = it.picture.thumbnail,
-                image = it.picture.large,
-                email = it.email,
-                age = it.dob.age.toString(),
-                address = "${it.location.street.number}, ${it.location.street.name} \n ${it.location.city}, \n ${it.location.state}, ${it.location.country} - ${it.location.postcode}"
-            )
-        }
-    }
-}
-
-Use Cases
+#### Use Cases
 The GetUsersUseCase class is invoked to fetch user data based on the input provided by the user.
 
-kotlin
-class GetUsersUseCase @Inject constructor(private val userRepository: UserRepository) {
-    suspend operator fun invoke(searchQuery: Int): List<User> {
-        return userRepository.getUsersList(searchQuery)
-    }
-}
-ViewModel
+class GetUsersUseCase @Inject constructor(private val userRepository: UserRepository) { </br>
+    suspend operator fun invoke(searchQuery: Int): List<User> { </br>
+        return userRepository.getUsersList(searchQuery) </br>
+    } </br>
+} </br>
+
+#### ViewModel
 The UserListViewModel manages the UI state and handles user input events.
 
-kotlin
-@HiltViewModel
-class UserListViewModel @Inject constructor(private val getUsersUseCase: GetUsersUseCase) : ViewModel() {
-    private val _state = MutableStateFlow(UserListUiState())
-    val state = _state.asStateFlow()
-
-    // Handle user input and fetch users accordingly
-    fun onEvent(event: UserListEvent) {
-        // Implementation here...
-    }
-}
-UI
+#### UI
 The UI is built using Jetpack Compose, providing a modern, reactive interface. Key components include UserListScreen and UserDetailScreen.
 
-kotlin
-@Composable
-fun UserListScreen(onItemClick: (String) -> Unit) {
-    // Implementation here...
-}
-Navigation
+#### Navigation
 The app uses Jetpack Navigation for seamless transitions between screens.
 
-kotlin
 @Composable
-fun NavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.UserList.route) {
-        // Implementation here...
-    }
-}
+fun NavGraph(navController: NavHostController) { </br>
+    NavHost(navController = navController, startDestination = Screen.UserList.route) { </br>
+        // Implementation here... </br>
+    } </br>
+}</br>
 
-
-bash
-./gradlew testDebugUnitTest
-To verify code coverage:
-
-bash
-./gradlew jacocoTestCoverageVerification
+#### Run the Unit Test
+bash</br>
+./gradlew test</br>
 
 
